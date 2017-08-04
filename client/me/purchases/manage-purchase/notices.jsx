@@ -80,8 +80,14 @@ class PurchaseNotice extends Component {
 	}
 
 	renderRenewNoticeAction( onClick ) {
+		const purchase = getPurchase( this.props );
 		const { translate } = this.props;
+
 		if ( ! config.isEnabled( 'upgrades/checkout' ) || ! getSelectedSite( this.props ) ) {
+			return null;
+		}
+
+		if ( ! isRenewable( purchase ) && ! isRedeemable( purchase ) ) {
 			return null;
 		}
 
